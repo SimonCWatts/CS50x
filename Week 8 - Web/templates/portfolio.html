@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Index
+{% endblock %}
+
+{% block main %}
+
+<table class="table sortable table-striped ">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Name</th>
+                <th>Shares</th>
+                <th>Cost Price</th>
+                <th>Cost Value</th>
+                <th>Market Value</th>
+                <th>P / L</th>
+                <th>P / L (%)</th>
+            </tr>
+        </thead>
+
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td>${{ port_mkt_val }}</td>
+                <td>${{ port_pnl }}</td>
+                <td>{{ port_pnl_pct }}%</td>
+            </tr>
+        </tfoot>
+
+        <tbody>
+
+            {% for row in rows%}
+                <tr>
+                    <td>{{ row["ticker"] }}</td>
+                    <td>{{ row["name"] }}</td>
+                    <td>{{ row["position"] }}</td>
+                    <td>${{ row["cost_px"] }}</td>
+                    <td>${{ row["cost_value"] }}</td>
+                    <td>${{ row["mkt_value"] }} </td>
+                    <td>${{ row["p&l"] }} </td>
+                    <td>{{ row["p&l%"] }}% </td>
+                </tr>
+            {% endfor %}
+
+            <tr>
+                <td colspan="5">CASH</td>
+                <td>${{ cash }}</td>
+                <td>--</td>
+                <td>--</td>
+            </tr>
+
+        </tbody>
+
+    </table>
+
+{% endblock %}

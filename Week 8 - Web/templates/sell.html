@@ -1,0 +1,38 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+
+    <!-- If no name exists, then prompt the user for a Ticker -->
+    {% if not name %}
+        <form action="/sell" method="post">
+
+           <!-- Drop Down of All Stocks in Portfolio -->
+           <div class="form-group">
+                <select class="form-control" name="ticker">
+                    <option disabled="" selected="" value="">Ticker</option>
+                    {% for row in rows %}
+                        <option value={{row['ticker']}}>{{ row['ticker'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Enter a Quantity -->
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" min="0" name="quantity" placeholder="Quantity" type="number">
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" type="submit">Sell</button>
+        </form>
+
+    <!-- If a name exists, show the stock data to the user -->
+    {% else %}
+        CONGRATULATIONS! You have sold {{ quantity}} shares of {{ name }} ({{ticker}}) at {{price}} per share!
+    {% endif %}
+
+
+{% endblock %}

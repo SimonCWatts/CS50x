@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+
+    <!-- If no name exists, then prompt the user for a Ticker -->
+    {% if not name %}
+        <form action="/buy" method="post">
+
+            <!-- Enter a Stock Ticker -->
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="ticker" placeholder="Ticker" type="text">
+            </div>
+
+            <!-- Enter a Quantity -->
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" min="0" name="quantity" placeholder="Quantity" type="number">
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" type="submit">Buy</button>
+        </form>
+
+    <!-- If a name exists, show the stock data to the user -->
+    {% else %}
+        CONGRATULATIONS! You have purchased {{ quantity}} shares of {{ name }} ({{ticker}}) at {{price}} per share!
+    {% endif %}
+
+
+{% endblock %}

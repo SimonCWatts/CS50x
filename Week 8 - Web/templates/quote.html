@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote
+{% endblock %}
+
+{% block main %}
+
+    <!-- If no name exists, then prompt the user for a Ticker -->
+    {% if not name %}
+        <form action="/quote" method="post">
+
+            <!-- Enter a Stock Ticker -->
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" name="ticker" placeholder="Ticker" type="text">
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" type="submit">Submit</button>
+        </form>
+
+    <!-- If a name exists, show the stock data to the user -->
+    {% else %}
+        <p> A share of {{ name }} ({{symbol}}) costs {{price}} </p>
+        <p style="color: red;"> Bid {{ bid }} </p>
+        <p style="color: green;"> Offer {{ ask }} </p>
+        <p> Price Earnings Ratio: {{ peRatio }} </p>
+
+        <!-- two buttons -->
+        <form action="" method="post" style="text-align: center;">
+            <button type="button" class="btn btn-success" id="buy"> <a class="nav-link" href="/buy">Buy!</a> </button>
+            <button type="button" class="btn btn-danger" id="sell"> <a class="nav-link" href="/sell">Sell!</a> </button>
+        </form>
+
+
+
+    {% endif %}
+
+
+{% endblock %}

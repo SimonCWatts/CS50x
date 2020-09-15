@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+<table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Ticker</th>
+                <th>Name</th>
+                <th>Direction</th>
+                <th>Quantity</th>
+                <th>Price</th>
+                <th>Date</th>
+            </tr>
+        </thead>
+
+
+        <tfoot>
+            <tr>
+                <td colspan="5"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+
+        <tbody>
+
+            {% for row in rows%}
+                <tr>
+                    <td>{{ row["ticker"] }}</td>
+                    <td>{{ row["name"] }}</td>
+                    <td>{{ row["direction"] }}</td>
+                    <td>{{ row["quantity"] }}</td>
+                    <td>{{ row["price"] }}</td>
+                    <td>{{ row["date"] }}</td>
+                </tr>
+            {% endfor %}
+
+
+        </tbody>
+
+    </table>
+
+{% endblock %}
