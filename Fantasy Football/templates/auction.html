@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+
+<table class="table table-striped">
+<!-- TABLE HEADER -->
+        <thead>
+            <tr>
+                <th>Player</th>
+                <th>Team</th>
+                <th>Position</th>
+                <th>Value</th>
+                <th>Max Bid</th>
+                <th># Bids</th>
+                <th>Highest Bidder</th>
+                <th>New Bid Price</th>
+                <th>Bid</th>
+                <th>Close Auction</th>
+
+            </tr>
+        </thead>
+<!-- TABLE FOOTER -->
+        <tfoot>
+            <tr>
+                <td colspan="6"></td>
+                <td></td>
+                <td></td>
+            </tr>
+        </tfoot>
+<!-- TABLE BODY -->
+        <tbody>
+            {% for row in rows%}
+                <tr>
+                    <td><a href='/history?playerid={{ row["PLAYERID"] }}'>{{ row["PLAYERFULLNAME"] }}</a></td>
+                    <td>{{ row["TEAMNAME"] }}</td>
+                    <td>{{ row["POS"] }}</td>
+                    <td>£{{ row["VALUE"] }}m</td>
+                    <td>£{{ row["max(px_bid)"] }}m</td>
+                    <td>{{ row["count(px_bid)"] }}</td>
+                    <td>{{ row["username"] }}</td>
+
+                    <!-- Optional Form to Make/Increase Competitive Bids -->
+                    <form action="/auction" method="post">
+                        <!-- Enter a Bid Price -->
+                        <div class="form-group">
+                            <td><input autocomplete="off" autofocus class="form-control-sm" min={{ row["max(px_bid)"] }} step="0.1" name="px_bid" placeholder="Bid Price" type="number"></td>
+                        </div>
+                    <!-- If this row was a bid from the CURRENT user, then the actions should be to increase their bid price-->
+                    {% if row["userid"] == user %}
+                        <!-- Submit Button -->
+                        <td><button class="btn btn-warning btn-sm" name="bid_button"  value={{ row["PLAYERID"] }} type="submit">Increase Bid</button></td>
+                    <!-- If this row was a bid from a DIFFERENT user, then the actions should be to make a new bid or pass-->
+                    {% else %}
+                        <!-- Submit Button -->
+                        <td><button class="btn btn-success btn-sm" name="bid_button" value={{ row["PLAYERID"] }} type="submit">Make Bid!</button></td>
+                    {% endif %}
+                    <!-- Close Auction Button -->
+                    <td><button class="btn btn-danger btn-sm" name="close_button" value = {{ row["PLAYERID"] }} type="submit">Close!</button></td>
+                    </form>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

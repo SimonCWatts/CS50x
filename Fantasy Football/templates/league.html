@@ -1,0 +1,36 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+
+        <table class="table sortable table-striped ">
+                <thead>
+                    <tr>
+                        <th>User Name</th>
+                        <th>Total Player Points</th>
+                        <th>Weekly Points</th>
+                        <th>Cash Balance</th>
+                    </tr>
+                </thead>
+
+                <tfoot> <tr> <td colspan="3"></td> </tr> </tfoot>
+
+                <tbody>
+                    {% for row in rows%}
+                    <tr>
+                        <td>{{ row["username"] }}</td>
+                        <td>{{ row["SUM(players.POINTS)"] }}</td>
+                        <td>{{ row["SUM(players.WEEKPOINTS)"] }}</td>
+                        <td>£{{ row["cash"] }}m</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+
+
+{% endblock %}

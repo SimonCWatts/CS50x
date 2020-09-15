@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Top Up Funds
+{% endblock %}
+
+{% block main %}
+
+
+    <form action="/topup" method="post">
+
+        <!-- Enter a Stock Ticker -->
+        <div class="form-group">
+            <input autocomplete="off" autofocus class="form-control" name="topup" min="0" placeholder="$" type="number">
+        </div>
+
+        <!-- Submit Button -->
+        <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+
+
+{% endblock %}

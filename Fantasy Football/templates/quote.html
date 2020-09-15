@@ -1,0 +1,88 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    quote
+{% endblock %}
+
+{% block main %}
+
+    <!-- If no name exists, then prompt the user for a Player's name -->
+    {% if rows %}
+        <div>
+            <form action="/quote" method="post">
+
+               <!-- Drop Down of All Players in the league -->
+               <div class="form-group">
+                    <select class="form-control" name="playerName">
+                        <option disabled="" selected="" value="">Select Player</option>
+                        {% for row in rows %}
+                            <option> {{ row['PLAYERFULLNAME'] }} </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+
+    <!-- If a name exists, show the player data to the user -->
+    {% else %}
+        <table class="table sortable table-striped ">
+                <thead>
+                    <tr>
+                        <th>Player Name</th>
+                        <th>Position</th>
+                        <th>Team</th>
+                        <th>Market Value</th>
+                        <th>Points</th>
+                        <th>Week Points</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Own Goals</th>
+
+                    </tr>
+                </thead>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="10"></td>
+                    </tr>
+                </tfoot>
+
+                <tbody>
+                {% for row in player%}
+                    <tr>
+                        <td>{{ row["PLAYERFULLNAME"] }}</td>
+                        <td>{{ row["POS"] }}</td>
+                        <td>{{ row["TEAMNAME"] }}</td>
+                        <td>${{ row["VALUE"] }}m</td>
+                        <td>{{ row["POINTS"] }} </td>
+                        <td>{{ row["WEEKPOINTS"] }} </td>
+                        <td>{{ row["GOALS"] }} </td>
+                        <td>{{ row["ASSISTS"] }} </td>
+                        <td>{{ row["OWNGOAL"] }} </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            {% if not bid %}
+            <!-- add bid form -->
+            <form action="/quote" method="post" style="text-align: center;">
+                <!-- Enter a Bid Price -->
+                <div class="form-group">
+                    <td><input autocomplete="off" autofocus class="form-control-sm" min="0.5" step="0.1" name="px_bid" placeholder="Bid Price" type="number"></td>
+                <!-- Submit Button -->
+                <button class="btn btn-success" name="bid_button" value={{ row['PLAYERID'] }} type="submit"> Bid!</button>
+                </div>
+            </form>
+            {% else %}
+                <div><h1>BID SUCCESSFUL!</h1></div>
+            {% endif %}
+
+            {% endfor %}
+    {% endif %}
+
+
+
+{% endblock %}

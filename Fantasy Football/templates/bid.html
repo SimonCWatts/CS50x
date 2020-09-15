@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Buy
+{% endblock %}
+
+{% block main %}
+
+    <!-- If no name exists, then prompt the user for a Ticker -->
+    {% if name %}
+        <h1> CONGRATULATIONS! You have bid for {{ name }} at £{{ price }}m ! </h1>
+    {% endif %}
+    <br>
+    <div>
+        <form action="/bid" method="post">
+
+           <!-- Drop Down of All Players in the league -->
+           <div class="form-group">
+                <select class="form-control" name="playerName">
+                    <option disabled="" selected="" value="">Player Name</option>
+                    {% for row in rows %}
+                        <option> {{ row['PLAYERFULLNAME'] }} </option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Enter a Bid Price -->
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" min=0 step="0.1" name="px_bid" placeholder="Bid Price" type="number">
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" type="submit">Bid</button>
+        </form>
+    </div>
+
+{% endblock %}

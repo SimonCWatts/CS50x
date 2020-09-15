@@ -1,0 +1,37 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Offer Players
+{% endblock %}
+
+{% block main %}
+
+    <!-- If no name exists, then prompt the user for a Ticker -->
+    {% if not name %}
+        <form action="/offer" method="post">
+
+           <!-- Drop Down of All Players in Portfolio -->
+           <div class="form-group">
+                <select class="form-control" name="playerName">
+                    <option disabled="" selected="" value="">Player Name</option>
+                    {% for row in rows %}
+                        <option>{{ row['PLAYERFULLNAME'] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+
+            <!-- Enter an Offer Price -->
+            <div class="form-group">
+                <input autocomplete="off" autofocus class="form-control" min="0" name="px_ask" placeholder="Offer Price" type="number">
+            </div>
+
+            <!-- Submit Button -->
+            <button class="btn btn-primary" type="submit">Offer</button>
+        </form>
+
+    <!-- If a name exists, show the player data to the user -->
+    {% else %}
+        CONGRATULATIONS! You have offered {{ playerName }} at {{ price }} !
+    {% endif %}
+
+{% endblock %}

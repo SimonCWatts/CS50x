@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+
+        <table class="table sortable table-striped ">
+                <thead>
+                    <tr>
+                        <th>Player Name</th>
+                        <th>Bid Price</th>
+                        <th>Bidder Name</th>
+                    </tr>
+                </thead>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="3"></td>
+                    </tr>
+                </tfoot>
+
+                <tbody>
+
+                    <!-- If player has bids -->
+                    {% if rows %}
+
+                        {% for row in rows%}
+                            <tr>
+                                <td>{{ row["PLAYERFULLNAME"] }}</td>
+                                <td>£{{ row["px_bid"] }}m</td>
+                                <td>{{ row["username"] }}</td>
+                            </tr>
+                        {% endfor %}
+                </tbody>
+            </table>
+                    {% else %}
+                        <tr>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                </tbody>
+            </table>
+            <br>
+            <h1>This Player Has No Bids Yet!</h1>
+            <br>
+            How Did You Even Arrive At This Page?
+                    {% endif %}
+{% endblock %}

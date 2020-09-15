@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Portfolio
+{% endblock %}
+
+{% block main %}
+
+
+        <table class="table sortable table-striped ">
+                <thead>
+                    <tr>
+                        <th>Bid Status</th>
+                        <th>Player Name</th>
+                        <th>Position</th>
+                        <th>Team</th>
+                        <th>Market Value</th>
+                        <th>Price Paid</th>
+                        <th>Points</th>
+                        <th>Week Points</th>
+                        <th>Goals</th>
+                        <th>Assists</th>
+                        <th>Own Goals</th>
+
+                    </tr>
+                </thead>
+
+                <tfoot>
+                    <tr>
+                        <td colspan="11"></td>
+                    </tr>
+                </tfoot>
+
+                <tbody>
+
+                    <!-- If player has positions -->
+                    {% if rows %}
+
+                        {% for row in rows%}
+                            <tr>
+                                <td>{{ row["status"] }}</td>
+                                <td>{{ row["PLAYERFULLNAME"] }}</td>
+                                <td>{{ row["POS"] }}</td>
+                                <td>{{ row["TEAMNAME"] }}</td>
+                                <td>${{ row["VALUE"] }}m</td>
+                                <td>${{ row["cost_px"] }}m</td>
+                                <td>{{ row["POINTS"] }} </td>
+                                <td>{{ row["WEEKPOINTS"] }} </td>
+                                <td>{{ row["GOALS"] }} </td>
+                                <td>{{ row["ASSISTS"] }} </td>
+                                <td>{{ row["OWNGOAL"] }} </td>
+                            </tr>
+                        {% endfor %}
+                        <tr>
+                            <td>CASH</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>£{{ rows[0]["cash"] }}m</td>
+                            <td>£{{ pv }}m</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                </tbody>
+            </table>
+                    {% else %}
+                        <tr>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                            <td>--</td>
+                        </tr>
+                </tbody>
+            </table>
+
+            <br>
+            <h1>YOU HAVE NO PLAYERS YET!</h1>
+            <br>
+            Head to the BID tab to start bidding!
+
+                    {% endif %}
+
+
+
+{% endblock %}
